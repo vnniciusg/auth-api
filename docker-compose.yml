@@ -1,19 +1,9 @@
 version: '3'
 services:
-  node:
-    image: node:18.16
-    working_dir: /app
-    volumes:
-      - .:/app
-    ports:
-      - 3000:3000
-    command: npm start
-    env_file:
-      - .env
-    depends_on:
-      - db
   db:
     image: postgres
+    env_file:
+      - .env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node src/index.ts"
+    "start": "nodemon --exec ts-node src/index.ts",
+    "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
+    "db:push": "npx prisma db push"
   },
   "keywords": [],
   "author": "",
