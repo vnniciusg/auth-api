@@ -10,8 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RoleEnumType{
+  user
+  admin
+}
 model User {
+  @@map("user")
+
   id Int @id @default(autoincrement())
-  email String
-  name String
+  email String @unique
+  firstname String
+  secondname String
+  fullname String
+
+  verified Boolean? @default(false)
+  role RoleEnumType? @default(user)
+
+
+  password String
+  verificationCode Int @unique
+
+  @@unique([email,verificationCode])
+  @@index([email,verificationCode])
 }
