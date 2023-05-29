@@ -1,5 +1,4 @@
 import { NextFunction , Request , Response} from 'express'
-import Logger from '../lib/winston/logger';
 
 class userController{
     static async getProfileUser( req: Request , res: Response , next : NextFunction ){
@@ -12,7 +11,6 @@ class userController{
                 }
             })
         }catch(error:any){
-            Logger.error('something went wrong when displaying the users profile',error)
             next(error);
         }
     }
