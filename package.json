@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node src/index.ts",
+    "start": "nodemon --exec ts-node src/app.ts",
     "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
     "db:push": "npx prisma db push"
   },
@@ -26,11 +26,14 @@
   "dependencies": {
     "@prisma/client": "^4.14.1",
     "@types/cookie-parser": "^1.4.3",
+    "@types/morgan": "^1.9.4",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "envalid": "^7.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "winston": "^3.9.0",
     "zod": "^3.21.4"
   }
 }
