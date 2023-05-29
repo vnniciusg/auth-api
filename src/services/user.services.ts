@@ -18,14 +18,6 @@ export const findUniqueUser = async (where:Prisma.UserWhereUniqueInput, select?:
     })) as User;
 };
 
-export const findByEmail = async ( email : string, select?: Prisma.UserSelect) =>{
-    const where : Prisma.UserWhereUniqueInput = {email};
-    return (await prisma.user.findUnique({
-        where,
-        select,
-    })) as User;
-}
-
 
 export const signTokens = async (user: User) => {
 

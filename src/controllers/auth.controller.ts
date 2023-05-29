@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import { Prisma } from '@prisma/client'
 import { Request , Response , NextFunction} from 'express'
 
-import { createUser, findByEmail } from '../services/user.services'
+import { createUser, findUniqueUser } from '../services/user.services'
 import { createUserInput, loginUserInput } from '../schemas/user.schema'
 
 import { signTokens } from '../services/user.services'
@@ -38,7 +38,8 @@ class authController {
     static async loginUser( req: Request<{},{},loginUserInput> , res: Response , next : NextFunction){
         try{
             const { email , password } = req.body;
-            const user = await findByEmail(email);
+            const user = await findUniqueUser({ email : req.body.email});
+            console.log(user)
             
             if( !user || !( await bcrypt.compare( password , user.password) )){
                 res.status(400).json({message: 'Invalid Email or Password'})
