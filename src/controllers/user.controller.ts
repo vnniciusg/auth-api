@@ -1,6 +1,5 @@
 import { NextFunction , Request , Response} from 'express'
 
-
 class userController{
     static async getProfileUser( req: Request , res: Response , next : NextFunction ){
         try{

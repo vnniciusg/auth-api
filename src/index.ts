@@ -1,8 +1,9 @@
 require('dotenv').config();
 import express, { Request, Response } from 'express';
+import cookieParser from 'cookie-parser';
+
 import userRoutes from '../src/routes/user'
 import { validateEnv } from './types/validateEnv';
-import cookieParser from 'cookie-parser';
 
 
 const app = express();

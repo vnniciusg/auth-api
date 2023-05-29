@@ -29,6 +29,8 @@ export const findByEmail = async ( email : string, select?: Prisma.UserSelect) =
 
 export const signTokens = async (user: User) => {
 
+    //create session here
+
     const access_token = await signJwt({sub : user},'accessTokenPrivateKey',{expiresIn : '10m'});
     const refresh_token = await signJwt({ sub : user } , 'refreshTokenPrivateKey', {expiresIn : '20m'})
 

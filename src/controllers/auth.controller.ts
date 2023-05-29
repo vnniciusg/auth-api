@@ -1,34 +1,12 @@
-import { Request , Response , NextFunction, CookieOptions} from 'express'
 import bcrypt from 'bcryptjs'
+import { Prisma } from '@prisma/client'
+import { Request , Response , NextFunction} from 'express'
+
 import { createUser, findByEmail } from '../services/user.services'
 import { createUserInput, loginUserInput } from '../schemas/user.schema'
+
 import { signTokens } from '../services/user.services'
-import { validateEnv } from '../types/validateEnv'
-import { Prisma } from '@prisma/client'
-
-
-const cookiesOptions : CookieOptions = {
-    httpOnly: true,
-    sameSite : 'lax',
-}
-
-if( validateEnv.NODE_ENV === 'production' ) cookiesOptions.secure = true;
-
-const accessTokenCookieOptions : CookieOptions = {
-    ...cookiesOptions,
-    expires : new Date(
-        Date.now() + validateEnv.accessTokenExpiresIn * 60 * 1000,
-    ),
-    maxAge: validateEnv.accessTokenExpiresIn * 60 * 1000,
-}
-
-const refreshTokenCookieOptions : CookieOptions = {
-    ...cookiesOptions,
-    expires : new Date(
-        Date.now() + validateEnv.refreshTokenExpiresIn * 60 * 1000
-    ),
-    maxAge: validateEnv.refreshTokenExpiresIn * 60 * 1000,
-}
+import { accessTokenCookieOptions , refreshTokenCookieOptions} from '../utils/cookie'
 
 class authController {
     static async registerNewUser( req: Request <{},{},createUserInput> , res: Response ){
@@ -85,11 +63,13 @@ class authController {
 
 
     static async refreshTokenRenew () {
+
+        //do later
     
     }
 
     static async logoutUser( req: Request , res: Response){
-
+        // do later
     }
 }
 
