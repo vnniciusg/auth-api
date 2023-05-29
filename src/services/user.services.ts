@@ -18,14 +18,10 @@ export const findUniqueUser = async (where:Prisma.UserWhereUniqueInput, select?:
     })) as User;
 };
 
-
 export const signTokens = async (user: User) => {
-
     //create session here
-
     const access_token = await signJwt({sub : user},'accessTokenPrivateKey',{expiresIn : '10m'});
     const refresh_token = await signJwt({ sub : user } , 'refreshTokenPrivateKey', {expiresIn : '20m'})
 
     return { access_token , refresh_token};
-
 }

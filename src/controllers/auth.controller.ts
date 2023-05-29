@@ -37,26 +37,23 @@ class authController {
 
     static async loginUser( req: Request<{},{},loginUserInput> , res: Response , next : NextFunction){
         try{
-            const { email , password } = req.body;
-            const user = await findUniqueUser({ email : req.body.email});
-            console.log(user)
-            
-            if( !user || !( await bcrypt.compare( password , user.password) )){
+            const user = await findUniqueUser({ email : req.body.email.toLowerCase()});           
+            if( !user || !( await bcrypt.compare( req.body.password , user.password) )){
                 res.status(400).json({message: 'Invalid Email or Password'})
             }
 
             const { access_token , refresh_token } = await signTokens(user);
 
-            res.cookie('access_token', access_token , accessTokenCookieOptions);
-            res.cookie('refresh_token',refresh_token) , refreshTokenCookieOptions;
-            res.cookie('logged_in' , true , {
-                ...accessTokenCookieOptions,
-                httpOnly:false
-            })
-            res.status(200).json({
-                status : 'success',
-                access_token,
-            });         
+            res.cookie('access_token', access_token, accessTokenCookieOptions)
+               .cookie('refresh_token', refresh_token, refreshTokenCookieOptions)
+               .cookie('logged_in', 'true', {
+                    ...accessTokenCookieOptions,
+                    httpOnly: false
+                })
+               .status(200).json({
+                     status: 'success',
+                        access_token
+                });     
         }catch(error:any){
             next(error);
         }
