@@ -17,7 +17,7 @@ model User {
   id Int @id @default(autoincrement())
   email String @unique
   firstname String
-  secondname String
+  lastname String
   fullname String
 
   verified Boolean? @default(false)
@@ -25,7 +25,7 @@ model User {
 
 
   password String
-  verificationCode Int @unique
+  verificationCode Int? @unique
 
   @@unique([email,verificationCode])
   @@index([email,verificationCode])
