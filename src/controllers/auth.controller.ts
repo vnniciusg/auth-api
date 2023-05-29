@@ -8,6 +8,8 @@ import { createUserInput, loginUserInput } from '../schemas/user.schema'
 import { signTokens } from '../services/user.services'
 import { accessTokenCookieOptions , refreshTokenCookieOptions} from '../utils/cookie'
 
+import Logger from '../lib/winston/logger'
+
 class authController {
     static async registerNewUser( req: Request <{},{},createUserInput> , res: Response ){
         try{
@@ -22,6 +24,7 @@ class authController {
             res.status(201).json({newUser})
 
         }catch(error:any){
+            Logger.error('Something went wrong with user register',error);
             if( error instanceof Prisma.PrismaClientKnownRequestError){
                 if(error.code === 'P2002'){
                     res.status(409).json({
@@ -55,7 +58,8 @@ class authController {
                         access_token
                 });     
         }catch(error:any){
-            next(error);
+            Logger.error('Something went wrong with user login' , error);
+            res.status(500).json({error: error.message});
         }
     }
 

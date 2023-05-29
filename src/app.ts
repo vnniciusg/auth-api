@@ -5,8 +5,6 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/user'
 import { validateEnv } from './types/validateEnv';
 import morganMiddleware from './config/morganMiddleware';
-import Logger from './lib/winston/logger';
-
 
 const app = express();
 const port = validateEnv.PORT || 4005;
